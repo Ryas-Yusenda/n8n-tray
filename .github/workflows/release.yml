@@ -1,0 +1,68 @@
+name: Build & Release Windows App
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Windows installer
+        run: npm run dist
+
+      - name: Get version from package.json
+        id: package_version
+        run: |
+          $version = (Get-Content package.json | ConvertFrom-Json).version
+          echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: dist/n8n-tray Setup *.exe
+          draft: false
+          prerelease: false
+          body: |
+            # Release v${{ steps.package_version.outputs.VERSION }}
+
+            ## 📦 Windows Installer
+
+            - **n8n-tray Setup x.x.x.exe** — NSIS Installer untuk Windows 10/11
+
+            ## 🚀 Cara Install
+
+            1. Download file `.exe` di atas
+            2. Jalankan installer
+            3. Ikuti wizard instalasi
+            4. Aplikasi siap digunakan
+
+            ## 📝 Release Notes
+
+            Lihat commit history untuk detail perubahan.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-installer
+          path: dist/n8n-tray Setup *.exe
+          retention-days: 30
