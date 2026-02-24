@@ -1,6 +1,6 @@
 {
   "name": "n8n-tray",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "n8n tray application",
   "license": "MIT",
   "author": "Ryas-Yusenda",
@@ -17,7 +17,7 @@
     "electron-builder": "^26.8.1"
   },
   "build": {
-    "appId": "com.example.n8ntray",
+    "appId": "com.win.n8ntray",
     "productName": "n8n Tray",
     "asar": true,
     "files": [

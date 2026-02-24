@@ -47,5 +47,4 @@ Thumbs.db
 *.log
 *.sqlite
 *.db
-package-lock.json
 
