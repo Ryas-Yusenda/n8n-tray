@@ -50,8 +50,8 @@ app.whenReady().then(() => {
 
   // ===== TRAY =====\
   const iconPath = app.isPackaged
-    ? path.join(process.resourcesPath, "assets", "tray.ico")
-    : path.join(__dirname, "assets", "tray.ico");
+    ? path.join(process.resourcesPath, "assets", "icon.ico")
+    : path.join(__dirname, "assets", "icon.ico");
 
   writeLog("Tray icon path: " + iconPath);
   writeLog("Icon exists: " + fs.existsSync(iconPath));
