@@ -1,19 +1,40 @@
 {
   "name": "n8n-tray",
   "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
+  "description": "n8n tray application",
+  "license": "MIT",
+  "author": "Ryas-Yusenda",
   "main": "main.js",
+  "type": "commonjs",
+  "private": true,
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
-  },
-  "dependencies": {
-    "electron": "^40.6.0"
+    "build": "electron-builder",
+    "dist": "electron-builder --win nsis --x64"
   },
   "devDependencies": {
+    "electron": "^40.6.0",
     "electron-builder": "^26.8.1"
+  },
+  "build": {
+    "appId": "com.example.n8ntray",
+    "productName": "n8n Tray",
+    "asar": true,
+    "files": [
+      "main.js",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   }
 }

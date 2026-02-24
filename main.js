@@ -5,6 +5,7 @@ const fs = require("fs");
 
 let tray = null;
 let n8nProcess = null;
+let isShuttingDown = false;
 const N8N_PORT = 17890;
 
 // ===== LOGGING =====
@@ -68,13 +69,34 @@ app.whenReady().then(() => {
   tray.setContextMenu(contextMenu);
 });
 
-app.on("window-all-closed", (e) => e.preventDefault());
+app.on("window-all-closed", (e) => {
+  e.preventDefault();
+  shutdown();
+});
+
+app.on("before-quit", () => {
+  shutdown();
+});
 
 function shutdown() {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+
   writeLog("Shutting down application...");
+
   if (n8nProcess && !n8nProcess.killed) {
-    spawn("taskkill", ["/pid", n8nProcess.pid, "/f", "/t"]);
-    writeLog("n8n process killed");
+    try {
+      if (process.platform === "win32") {
+        spawn("taskkill", ["/pid", n8nProcess.pid, "/f", "/t"]);
+        writeLog("n8n process killed (windows)");
+      } else {
+        n8nProcess.kill("SIGTERM");
+        writeLog("n8n process killed (unix)");
+      }
+    } catch (err) {
+      writeLog(`Failed to kill n8n: ${err.message}`);
+    }
   }
+
   app.quit();
 }
