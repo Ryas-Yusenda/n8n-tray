@@ -1,0 +1,51 @@
+## Node
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+*.log
+
+## Build / output
+dist/
+build/
+out/
+release/
+/.rpt2_cache/
+/.rts2_cache_cjs/
+
+## Environment files
+.env
+.env.local
+.env.*.local
+
+## Electron / packaging artifacts
+*.asar
+*.AppImage
+*.dmg
+*.exe
+*.msi
+*.deb
+*.rpm
+*.zip
+*.tar.gz
+
+## Coverage & test
+coverage/
+.nyc_output/
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Editors / IDEs
+.vscode/
+.idea/
+.history/
+
+## Misc
+*.tgz
+*.log
+*.sqlite
+*.db
+package-lock.json
+
