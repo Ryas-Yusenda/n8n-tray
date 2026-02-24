@@ -53,6 +53,9 @@ app.whenReady().then(() => {
     ? path.join(process.resourcesPath, "assets", "tray.ico")
     : path.join(__dirname, "assets", "tray.ico");
 
+  writeLog("Tray icon path: " + iconPath);
+  writeLog("Icon exists: " + fs.existsSync(iconPath));
+
   tray = new Tray(iconPath);
 
   const contextMenu = Menu.buildFromTemplate([
