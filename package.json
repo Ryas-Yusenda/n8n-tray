@@ -1,6 +1,6 @@
 {
   "name": "n8n-tray",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "n8n tray application",
   "license": "MIT",
   "author": "Ryas-Yusenda",
@@ -26,8 +26,11 @@
     ],
     "win": {
       "target": "nsis",
-      "icon": "icon.ico"
+      "icon": "assets/icon.ico"
     },
+    "asarUnpack": [
+      "assets/**"
+    ],
     "nsis": {
       "oneClick": false,
       "perMachine": false,

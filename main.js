@@ -48,8 +48,12 @@ app.whenReady().then(() => {
     writeLog(`n8n exited with code ${code}`);
   });
 
-  // ===== TRAY =====
-  tray = new Tray(path.join(__dirname, "icon.ico"));
+  // ===== TRAY =====\
+  const iconPath = app.isPackaged
+    ? path.join(process.resourcesPath, "assets", "tray.ico")
+    : path.join(__dirname, "assets", "tray.ico");
+
+  tray = new Tray(iconPath);
 
   const contextMenu = Menu.buildFromTemplate([
     {
